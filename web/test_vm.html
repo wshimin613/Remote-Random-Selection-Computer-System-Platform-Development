@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>TEST_vm</title>
+</head>
+
+<body onload="vm_monitor()">
+    <table class="table table-hover" style='text-align:center;'>
+        <thead>
+            <tr>
+                <th scope="col">VM NAME</th>
+                <th scope="col">C: TOTAL</th>
+                <th scope="col">C: USAGE</th>
+                <th scope="col">D: TOTAL</th>
+                <th scope="col">D: USAGE</th>
+                <th scope="col">K: TOTAL</th>
+                <th scope="col">K: USAGE</th>
+            </tr>
+        </thead>
+        <tbody id="vm_hardware"></tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">偵測電腦硬體數值示意圖</h5>
+                    <button onclick="vm_close(disk_C,disk_D,disk_K)" type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <canvas id="disk_C"></canvas>
+                    </div>
+                    <div class="col-md-4">
+                        <canvas id="disk_D"></canvas>
+                    </div>
+                    <div class="col-md-4">
+                        <canvas id="disk_K"></canvas>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="vm_close(disk_C,disk_D,disk_K)" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function vm_monitor() {
+        let vm_hardware = document.getElementById('vm_hardware');
+        $.getJSON("./vm_hardware.json", function (data) {
+            for (i = 0; i < data.length; i++) {
+                if (data[i].vm_status) {
+                    $('#vm_hardware').append("<tr class='table-secondary'>" +
+                        "<td colspan='10'>" + data[i].vm_status + "</td>" +
+                        "</tr>");
+                }
+                else {
+                    $('#vm_hardware').append("<tr onclick='vm(" + i + ")' id=v" + i + " data-bs-toggle='modal' data-bs-target='#exampleModal'>" +
+                        "<td>" + data[i].vm_name + "</td>" +
+                        "<td>" + data[i].disk_C_total + "</td>" +
+                        "<td>" + (data[i].disk_C_total - data[i].disk_C_free).toFixed(1) + "</td>" +
+                        "<td>" + data[i].disk_D_total + "</td>" +
+                        "<td>" + (data[i].disk_D_total - data[i].disk_D_free).toFixed(1) + "</td>" +
+                        "<td>" + data[i].disk_K_total + "</td>" +
+                        "<td>" + (data[i].disk_K_total - data[i].disk_K_free).toFixed(1) + "</td>" +
+                        "</tr>");
+                    if (((data[i].disk_C_total - data[i].disk_C_free) / data[i].disk_C_total) * 100 > 85) {
+                        $("#v" + i).addClass('table-danger');
+                    }
+                    if (((data[i].disk_D_total - data[i].disk_D_free) / data[i].disk_D_total) * 100 > 85) {
+                        $("#v" + i).addClass('table-danger');
+                    }
+                    if (((data[i].disk_K_total - data[i].disk_K_free) / data[i].disk_K_total) * 100 > 85) {
+                        $("#v" + i).addClass('table-danger');
+                    }
+                }
+            }
+        })
+    }
+
+    function vm(i) {
+        let vm_name = $("#v" + i).find("td:eq(0)").html();
+        let disk_C_total = $("#v" + i).find("td:eq(1)").html();
+        let disk_C_usage = $("#v" + i).find("td:eq(2)").html();
+        let disk_D_total = $("#v" + i).find("td:eq(3)").html();
+        let disk_D_usage = $("#v" + i).find("td:eq(4)").html();
+        let disk_K_total = $("#v" + i).find("td:eq(5)").html();
+        let disk_K_usage = $("#v" + i).find("td:eq(6)").html();
+
+        let disk_C_free = disk_C_total - disk_C_usage;
+        let disk_D_free = disk_D_total - disk_D_usage;
+        let disk_K_free = disk_K_total - disk_K_usage;
+
+        let disk_C_warning = Math.round((disk_C_usage / disk_C_total) * 100);
+        let disk_D_warning = Math.round((disk_D_usage / disk_D_total) * 100);
+        let disk_K_warning = Math.round((disk_K_usage / disk_K_total) * 100);
+
+        if (disk_C_warning > 85) {
+            disk_C_color = 'rgb(227, 23, 13)';
+        }
+        else {
+            disk_C_color = 'rgb(54, 162, 235)';
+        }
+        if (disk_D_warning > 85) {
+            disk_D_color = 'rgb(227, 23, 13)';
+        }
+        else {
+            disk_D_color = 'rgb(54, 162, 235)';
+        }
+        if (disk_K_warning > 85) {
+            disk_K_color = 'rgb(227, 23, 13)';
+        }
+        else {
+            disk_K_color = 'rgb(54, 162, 235)';
+        }
+
+        //
+        let vmdisk_C = document.getElementById('disk_C').getContext('2d');
+        disk_C = new Chart(vmdisk_C, {
+            type: 'doughnut',
+            data: {
+                labels: ['已使用', '未使用'],
+                datasets: [{
+                    data: [disk_C_usage, disk_C_free],
+                    backgroundColor: [
+                        disk_C_color,
+                        'rgba(0, 0, 0, 0.1)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(0, 0, 0, 0.3)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 5
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    labels: {
+                        fontSize: 15
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: vm_name + " disk C",
+                        font: {
+                            size: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        let vmdisk_D = document.getElementById('disk_D').getContext('2d');
+        disk_D = new Chart(vmdisk_D, {
+            type: 'doughnut',
+            data: {
+                labels: ['已使用', '未使用'],
+                datasets: [{
+                    data: [disk_D_usage, disk_D_free],
+                    backgroundColor: [
+                        disk_D_color,
+                        'rgba(0, 0, 0, 0.1)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(0, 0, 0, 0.3)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 5
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    labels: {
+                        fontSize: 15
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: vm_name + " disk D",
+                        font: {
+                            size: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        let vmdisk_K = document.getElementById('disk_K').getContext('2d');
+        disk_K = new Chart(vmdisk_K, {
+            type: 'doughnut',
+            data: {
+                labels: ['已使用', '未使用'],
+                datasets: [{
+                    data: [disk_K_usage, disk_K_free],
+                    backgroundColor: [
+                        disk_K_color,
+                        'rgba(0, 0, 0, 0.1)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(0, 0, 0, 0.3)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 5
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    labels: {
+                        fontSize: 15
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: vm_name + " disk K",
+                        font: {
+                            size: 20
+                        }
+                    },
+                    outlabels: {
+                        color: 'white',
+                        stretch: 35,
+                        borderRadius: 12,
+                        borderWidth: 3,
+                        display: true,
+                        lineWidth: 2,
+                        padding: 5,
+                        textAlign: 'center',
+                        font: {
+                            resizable: true,
+                            minSize: 16
+                        }
+                    },
+                    datalabels: {
+                        display: true,
+                        color: '#fff',
+                        font: {
+                            size: 15
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function vm_close(disk_C, disk_D, disk_K) {
+        disk_C.destroy();
+        disk_D.destroy();
+        disk_K.destroy();
+    }
+</script>
+
+</html>

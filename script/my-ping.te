@@ -1,0 +1,12 @@
+
+module my-ping 1.0;
+
+require {
+	type httpd_t;
+	class capability net_raw;
+	class rawip_socket { create getopt setopt };
+}
+
+#============= httpd_t ==============
+allow httpd_t self:capability net_raw;
+allow httpd_t self:rawip_socket { create getopt setopt };

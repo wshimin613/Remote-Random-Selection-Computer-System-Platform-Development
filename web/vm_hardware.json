@@ -1,0 +1,194 @@
+[
+ {
+  "vm_name": "PC1-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "112.1",
+  "disk_D_total": "200.0",
+  "disk_D_free": "197.9",
+  "disk_L_total": "100.0",
+  "disk_L_free": "68.6"
+ },
+ {
+  "vm_status": "PC1-2 is poweroff"
+ },
+ {
+  "vm_name": "PC2-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "113.0",
+  "disk_D_total": "200.0",
+  "disk_D_free": "197.8",
+  "disk_L_total": "100.0",
+  "disk_L_free": "55.2"
+ },
+ {
+  "vm_status": "PC2-2 is poweroff"
+ },
+ {
+  "vm_name": "PC3-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "114.1",
+  "disk_D_total": "200.0",
+  "disk_D_free": "198.0",
+  "disk_L_total": "100.0",
+  "disk_L_free": "76.7"
+ },
+ {
+  "vm_name": "PC3-2",
+  "disk_C_total": "199.3",
+  "disk_C_free": "112.5",
+  "disk_D_total": "200.0",
+  "disk_D_free": "195.8",
+  "disk_L_total": "100.0",
+  "disk_L_free": "79.4"
+ },
+ {
+  "vm_name": "PC4-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "117.5",
+  "disk_D_total": "200.0",
+  "disk_D_free": "198.0",
+  "disk_L_total": "100.0",
+  "disk_L_free": "68.9"
+ },
+ {
+  "vm_name": "PC4-2",
+  "disk_C_total": "199.3",
+  "disk_C_free": "112.4",
+  "disk_D_total": "200.0",
+  "disk_D_free": "196.4",
+  "disk_L_total": "100.0",
+  "disk_L_free": "69.4"
+ },
+ {
+  "vm_status": "PC5-1 is poweroff"
+ },
+ {
+  "vm_status": "PC5-2 is poweroff"
+ },
+ {
+  "vm_name": "PC6-1",
+  "disk_C_total": "99.3",
+  "disk_C_free": "21.7",
+  "disk_D_total": "200.0",
+  "disk_D_free": "198.4",
+  "disk_L_total": "100.0",
+  "disk_L_free": "60.1"
+ },
+ {
+  "vm_status": "PC6-2 is poweroff"
+ },
+ {
+  "vm_name": "PC7-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "115.2",
+  "disk_D_total": "200.0",
+  "disk_D_free": "197.7",
+  "disk_L_total": "100.0",
+  "disk_L_free": "74.0"
+ },
+ {
+  "vm_status": "PC7-2 is poweroff"
+ },
+ {
+  "vm_status": "PC8-1 is poweroff"
+ },
+ {
+  "vm_status": "PC8-2 is poweroff"
+ },
+ {
+  "vm_status": "PC9-1 is poweroff"
+ },
+ {
+  "vm_status": "PC9-2 is poweroff"
+ },
+ {
+  "vm_status": "PC10-1 is poweroff"
+ },
+ {
+  "vm_status": "PC10-2 is poweroff"
+ },
+ {
+  "vm_status": "PC11-1 is poweroff"
+ },
+ {
+  "vm_status": "PC11-2 is poweroff"
+ },
+ {
+  "vm_status": "PC12-1 is poweroff"
+ },
+ {
+  "vm_status": "PC12-2 is poweroff"
+ },
+ {
+  "vm_name": "PC13-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "111.8",
+  "disk_D_total": "200.0",
+  "disk_D_free": "197.5",
+  "disk_L_total": "100.0",
+  "disk_L_free": "70.7"
+ },
+ {
+  "vm_status": "PC13-2 is poweroff"
+ },
+ {
+  "vm_status": "PC14-1 is poweroff"
+ },
+ {
+  "vm_status": "PC14-2 is poweroff"
+ },
+ {
+  "vm_status": "PC15-1 is poweroff"
+ },
+ {
+  "vm_status": "PC15-2 is poweroff"
+ },
+ {
+  "vm_status": "PC16-1 is poweroff"
+ },
+ {
+  "vm_status": "PC16-2 is poweroff"
+ },
+ {
+  "vm_status": "PC17-1 is poweroff"
+ },
+ {
+  "vm_status": "PC17-2 is poweroff"
+ },
+ {
+  "vm_status": "PC18-1 is poweroff"
+ },
+ {
+  "vm_status": "PC18-2 is poweroff"
+ },
+ {
+  "vm_status": "PC19-1 is poweroff"
+ },
+ {
+  "vm_status": "PC19-2 is poweroff"
+ },
+ {
+  "vm_status": "PC20-1 is poweroff"
+ },
+ {
+  "vm_status": "PC20-2 is poweroff"
+ },
+ {
+  "vm_name": "PC21-1",
+  "disk_C_total": "199.3",
+  "disk_C_free": "92.8",
+  "disk_D_total": "200.0",
+  "disk_D_free": "197.6",
+  "disk_L_total": "100.0",
+  "disk_L_free": "63.3"
+ },
+ {
+  "vm_name": "PC21-2",
+  "disk_C_total": "199.3",
+  "disk_C_free": "102.8",
+  "disk_D_total": "200.0",
+  "disk_D_free": "198.0",
+  "disk_L_total": "100.0",
+  "disk_L_free": "56.4"
+ }
+]
