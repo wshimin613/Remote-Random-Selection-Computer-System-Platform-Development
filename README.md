@@ -23,7 +23,7 @@
 | --- | --- |
 | ![教室架構圖](images/classroom.PNG) | <img src="images/remote.JPG" alt="遠端連線架構圖" width="550"> |
 
-## Demo
+## Demo圖片和影片
 
 | 系統介面 | 隨選電腦 |
 | --- | --- |
@@ -32,3 +32,7 @@
 | 下載連線檔案 | 遠端連線登入 |
 | --- | --- |
 | ![下載連線檔案](images/download.JPG) | ![遠端連線登入](images/login.PNG) |
+
+https://github.com/wshimin613/Remote-Random-Selection-Computer-System-Platform-Development/assets/83169038/f9f5086c-5f28-4afb-8a97-f9aae81ad094
+
+
